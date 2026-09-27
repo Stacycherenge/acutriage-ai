@@ -1,4 +1,4 @@
-#  AcuTriage AI: Multi-Modal Emergency Severity Index (ESI) Platform
+# 🏥 AcuTriage AI: Multi-Modal Emergency Severity Index (ESI) Platform
 
 [![FastAPI](https://shields.io)](https://tiangolo.com)
 [![PyTorch](https://shields.io)](https://pytorch.org)
@@ -8,13 +8,42 @@
 AcuTriage AI is a production-grade, secure-by-design healthcare microservice engineered to mitigate clinical overcrowding in emergency rooms and rural health networks. By combining immediate physiological vital tracks, continuous tracking metrics, long-term chronic disease flags, and unstructured free-text nurse narratives, the platform replaces traditional "black box" diagnostic algorithms with a high-performance **Multi-Modal Deep Learning Classification Engine (94.64% Validation Accuracy)** wrapped in game-theoretic feature attribution explainability maps (**SHAP**).
 
 
+
 ## System Architecture Blueprint
 
 The ecosystem is built using a highly decoupled, **Modular Layered Architecture** that isolates data persistence from domain business logic via a strict dependency-injected execution path.
-[ REACT FRONTEND SPA ]│(HTTP REST / JSON Payloads)│┌─────────────────────────▼──────────────────────────┐│ 1. ROUTERS LAYER (routers/patient.py)              ││    - Accepts requests & enforces HTTP endpoints    │└─────────────────────────┬──────────────────────────┘│ (Passes Pydantic Schemas)┌─────────────────────────▼──────────────────────────┐│ 2. SERVICES LAYER (services/patient.py)            ││    - Coordinates ML inference (PyTorch Runtime)    ││    - Enforces core healthcare business logic       │└─────────────────────────┬──────────────────────────┘│ (Calls Abstract Queries)┌─────────────────────────▼──────────────────────────┐│ 3. REPOSITORIES LAYER (repositories/patient.py)   ││    - Executes raw database transactions            │└─────────────────────────┬──────────────────────────┘│ (Mutates Python Objects)┌─────────────────────────▼──────────────────────────┐│ 4. DATABASE & MODELS LAYER (models/patient.py)     ││    - PostgreSQL instance via SQLAlchemy Async      │└────────────────────────────────────────────────────┘
 
+```text
+                  [ REACT FRONTEND SPA ]
+                            │
+               (HTTP REST / JSON Payloads)
+                            │
+  ┌─────────────────────────▼──────────────────────────┐
+  │ 1. ROUTERS LAYER (routers/patient.py)              │
+  │    - Accepts requests & enforces HTTP endpoints    │
+  └─────────────────────────┬──────────────────────────┘
+                            │ (Passes Pydantic Schemas)
+  ┌─────────────────────────▼──────────────────────────┐
+  │ 2. SERVICES LAYER (services/patient.py)            │
+  │    - Coordinates ML inference (PyTorch Runtime)    │
+  │    - Enforces core healthcare business logic       │
+  └─────────────────────────┬──────────────────────────┘
+                            │ (Calls Abstract Queries)
+  ┌─────────────────────────▼──────────────────────────┐
+  │ 3. REPOSITORIES LAYER (repositories/patient.py)   │
+  │    - Executes raw database transactions            │
+  └─────────────────────────┬──────────────────────────┘
+                            │ (Mutates Python Objects)
+  ┌─────────────────────────▼──────────────────────────┐
+  │ 4. DATABASE & MODELS LAYER (models/patient.py)     │
+  │    - PostgreSQL instance via SQLAlchemy Async      │
+  └────────────────────────────────────────────────────┘
+```
 
-## Core Cybersecurity Specs (Secure-by-Design)
+---
+
+## 🛡️ Core Cybersecurity Specs (Secure-by-Design)
+
 * **Asymmetric Token Security:** Authorization utilizes asymmetric **RS256 JWT tokens**. The authorization provider retains the secure private key while this microservice uses the corresponding public key to verify signatures without exposing credentials.
 * **Role-Based Access Control (RBAC):** Strict operational boundaries are enforced via dynamic backend interceptors:
   * `Junior Nurse`: Authorized for patient vital intake submissions and live AI triage generation.
@@ -23,7 +52,9 @@ The ecosystem is built using a highly decoupled, **Modular Layered Architecture*
 * **Storage Defenses:** Ingestion filters strictly check bounds (e.g., rejecting physical anomalies like an SpO₂ > 100%) and password structures are hardened at the front door using memory-hard **Argon2id** algorithms.
 
 
-##  Machine Learning Engine Core
+
+## Machine Learning Engine Core
+
 The diagnostic core consists of a customized **Deep Feedforward Artificial Neural Network (ANN)** built from scratch in PyTorch, mapping a **162-dimensional input feature space** down to 5 discrete output logits corresponding to real-world ESI Urgency levels (0 = Critical Resuscitation, 4 = Non-Urgent).
 
 * **Multi-Modal Data Fusion:** Concurrently processes continuous vitals, administrative demographics, over 20 programmatically harvested chronic disease flags (`hx_`), and sparse natural language text matrices.
@@ -33,6 +64,8 @@ The diagnostic core consists of a customized **Deep Feedforward Artificial Neura
 
 
 ## Repository Directory Structure
+
+```text
 acutriage-ai/
 │
 ├── backend/
@@ -53,9 +86,11 @@ acutriage-ai/
 │   └── tests/                     # Automated unit and integration testing module
 │
 └── frontend/                      # High-contrast clinical dashboard (React Single Page App)
+```
 
+---
 
-## Local Installation & Execution Strategy
+## 🚀 Local Installation & Execution Strategy
 
 ### 1. Pre-requisites & Key Initialization
 Ensure you have Python 3.11+, PostgreSQL, and OpenSSL installed locally. Generate your asymmetric keys via your terminal inside the `backend/app/core/` directory:
@@ -93,4 +128,3 @@ Execute your decoupled test suites via PyTest to evaluate your authentication st
 ```bash
 pytest
 ```
-
