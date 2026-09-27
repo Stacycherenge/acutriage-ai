@@ -40,9 +40,8 @@ The ecosystem is built using a highly decoupled, **Modular Layered Architecture*
   └────────────────────────────────────────────────────┘
 ```
 
----
 
-## 🛡️ Core Cybersecurity Specs (Secure-by-Design)
+##  Core Cybersecurity Specs (Secure-by-Design)
 
 * **Asymmetric Token Security:** Authorization utilizes asymmetric **RS256 JWT tokens**. The authorization provider retains the secure private key while this microservice uses the corresponding public key to verify signatures without exposing credentials.
 * **Role-Based Access Control (RBAC):** Strict operational boundaries are enforced via dynamic backend interceptors:
@@ -88,9 +87,8 @@ acutriage-ai/
 └── frontend/                      # High-contrast clinical dashboard (React Single Page App)
 ```
 
----
 
-## 🚀 Local Installation & Execution Strategy
+##  Local Installation & Execution Strategy
 
 ### 1. Pre-requisites & Key Initialization
 Ensure you have Python 3.11+, PostgreSQL, and OpenSSL installed locally. Generate your asymmetric keys via your terminal inside the `backend/app/core/` directory:
